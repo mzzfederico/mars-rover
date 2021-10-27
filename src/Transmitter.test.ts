@@ -47,16 +47,13 @@ describe('Transmitter', () => {
     ])
   })
 
-  it('should send current commands on connection passed at instance', async () => {
+  it('should send current commands on connection passed at instance', () => {
     const mock = new MockConnection()
     const transmitter = new Transmitter(mock)
 
     transmitter.goForward()
+    transmitter.sendCommands()
 
-    return new Promise((resolve, reject) => {
-      mock.on("commandsEmitted", (commandsEmitted: string[]) => {
-        expect(commandsEmitted).toStrictEqual(["f"])
-      })
-    })
+    expect(mock.__dumpLastCommands()).toStrictEqual([Commands.GoForward])
   })
 })

@@ -17,7 +17,7 @@ export class Transmitter {
     }
 
     public goForward(): void {
-        this.savedCommands.push(Commands.GoForward)
+        this.savedCommands = [...this.savedCommands, Commands.GoForward]
     }
 
     public goBackward(): void {
@@ -37,6 +37,6 @@ export class Transmitter {
     }
 
     public sendCommands(): void {
-
+        this.connection.send(this.savedCommands)
     }
 }
